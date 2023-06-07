@@ -1,6 +1,6 @@
 de novo generated combinatorial library design 
 =========
-This is an implementation of the framework described in ().
+This is an implementation of the framework described in [This preprint](https://chemrxiv.org/engage/chemrxiv/article-details/647060d7be16ad5c57f1ab9a).
 
 This framework is for combinatorial library design based on de novo generated molecules and optimizing across the products of attaching building blocks to the scaffold.
 
