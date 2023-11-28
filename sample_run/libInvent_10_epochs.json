@@ -1,0 +1,99 @@
+{
+    "logging": {
+        "job_id": " ",
+        "job_name": "RL",
+        "logging_path": "../sample_output/",
+        "recipient": "local",
+        "sender": " "
+    },
+    "parameters": {
+        "actor": "./trained_models/reaction_based.model",
+        "batch_size": 128,
+        "critic": "./trained_models/reaction_based.model",
+        "learning_rate": 1e-4,
+        "output_path": "./",
+        "learning_strategy": {
+            "name": "dap",
+            "parameters": {
+                "sigma": 120
+            }
+        },
+        "n_steps": 10,
+        "randomize_scaffolds": false,
+        "scaffolds": [
+            "[*:0]N1CCN(CC1)CCCCN[*:1]"
+        ],
+        "scoring_strategy": {
+            "diversity_filter": {
+                "name": "NoFilterWithPenalty",
+                "learning_rate": 1e-4
+            },
+            "name": "standard",
+            "reaction_filter": {
+                "reactions": {
+                    "0": [
+                        "[c;$(c1:[c,n]:[c,n]:[c,n]:[c,n]:[c,n]:1):1]-!@[N;$(NC)&!$(N=*)&!$([N-])&!$(N#*)&!$([ND1])&!$(N[O])&!$(N[C,S]=[S,O,N]),H2&$(Nc1:[c,n]:[c,n]:[c,n]:[c,n]:[c,n]:1):2]>>[*][c;$(c1:[c,n]:[c,n]:[c,n]:[c,n]:[c,n]:1):1].[*][N:2]"
+                    ],
+                    "1": [
+                        "[#6;!$(C(C=*)(C=*));!$([#6]~[O,N,S]);$([#6]~[#6]):1][C:2](=[O:3])[N;D2;$(N(C=[O,S]));!$(N~[O,P,S,N]):4][#6;!$(C=*);!$([#6](~[O,N,S])N);$([#6]~[#6]):5]>>[#6:1][C:2](=[O:3])[*].[*][N:4][#6:5]"
+                    ]
+                },
+                "type": "selective"
+            },
+            "scoring_function": {
+                "name": "custom_sum",
+                "parallel": false,
+                "parameters": [
+                    {
+                        "component_type": "predictive_property",
+                        "model_path": "../publication_example/QSAR_model.pkl",
+                        "name": "DRD2",
+                        "smiles": [],
+                        "specific_parameters": {
+                            "descriptor_type": "ecfp",
+                            "radius": 3,
+                            "scikit": "classification",
+                            "size": 2048,
+                            "transformation": false,
+                            "transformation_type": "no_transformation"
+                        },
+                        "weight": 1
+                    },
+                    {
+                        "component_type": "custom_alerts",
+                        "model_path": null,
+                        "name": "Custom alerts",
+                        "smiles": [
+                            "[*;r8]",
+                            "[*;r9]",
+                            "[*;r10]",
+                            "[*;r11]",
+                            "[*;r12]",
+                            "[*;r13]",
+                            "[*;r14]",
+                            "[*;r15]",
+                            "[*;r16]",
+                            "[*;r17]",
+                            "[#8][#8]",
+                            "[#6;+]",
+                            "[#16][#16]",
+                            "[#7;!n][S;!$(S(=O)=O)]",
+                            "[#7;!n][#7;!n]",
+                            "C#C",
+                            "C(=[O,S])[O,S]",
+                            "[#7;!n][C;!$(C(=[O,N])[N,O])][#16;!s]",
+                            "[#7;!n][C;!$(C(=[O,N])[N,O])][#7;!n]",
+                            "[#7;!n][C;!$(C(=[O,N])[N,O])][#8;!o]",
+                            "[#8;!o][C;!$(C(=[O,N])[N,O])][#16;!s]",
+                            "[#8;!o][C;!$(C(=[O,N])[N,O])][#8;!o]",
+                            "[#16;!s][C;!$(C(=[O,N])[N,O])][#16;!s]"
+                        ],
+                        "specific_parameters": null,
+                        "weight": 1
+                    }
+                ]
+            }
+        }
+    },
+    "run_type": "reinforcement_learning"
+}

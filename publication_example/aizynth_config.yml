@@ -1,0 +1,18 @@
+properties:
+  exclude_target_from_stock: False
+  iteration_limit: 200
+  time_limit: 300
+  cutoff_cumulative: 0.995
+  cutoff_number: 50
+  max_transforms: 10 
+policy:
+  files:
+    uspto:
+      - path_to_aizynthfinder/uspto_model.hdf5
+      - path_to_aizynthfinder/uspto_templates.hdf5
+filter:
+  files:
+    uspto: path_to_aizynthfinder/uspto_filter_model.hdf5
+stock:
+  files:
+    emolecules: 

@@ -1,0 +1,18 @@
+properties:
+  exclude_target_from_stock: False
+  iteration_limit: 100
+  time_limit: 10
+  cutoff_cumulative: 0.995
+  cutoff_number: 50
+  max_transforms: 5 
+policy:
+  files:
+    uspto:
+      - ./uspto_model.hdf5
+      - ./uspto_templates.hdf5
+filter:
+  files:
+    uspto: ./uspto_filter_model.hdf5
+stock:
+  files:
+    zinc: ./zinc_stock.hdf5
